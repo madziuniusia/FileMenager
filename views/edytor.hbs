@@ -1,0 +1,22 @@
+{{> partial1}}
+
+<div id="context">
+    <div id="lewa">
+        <div class="divLeft">
+            <button id="fontMinus" class="div-left-font" name="fontMinus">FONT -</button>
+            <button id="color" class="div-left-font" name="color">COLOR</button>
+            <button id="fontPlus" class="div-left-font" name="fontPlus">FONT +</button>
+        </div>
+
+        <div class="divLeft"><button id="savefile" class="divLeft-a" name="savefile">SAVE file</button>
+        </div>
+        <div class="divLeft"><button id="changeName" class="divLeft-a" name="changeName">CHANGE NAME</button></div>
+        <div class="divLeft"> <a href="/Text/{{name}}" class="divLeft-a" id="ShowFile-a">SHOW FILE</a></div>
+    </div>
+    <div id="prawa-edit">
+        <div id="upName">{{name}}</div>
+        <textarea id="line-count" readonly></textarea>
+        <textarea name="text" id="area">{{text}}</textarea>
+    </div>
+
+    <script type="module" src="/js/file.js"></script>

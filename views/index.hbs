@@ -1,0 +1,76 @@
+{{> partial1}}
+<div id="context">
+    <div id="lewa">
+        <div class="divLeft"><button id="newFolder" class="divLeft-a" name="folder">NOWY FOLDER</button></div>
+        <div class="divLeft"><button id="newFile" class="divLeft-a" name="file">NOWY PLIK TEKSTOWY</button></div>
+        <div class="divLeft"><button id="newName" class="divLeft-a" name="newName">NOWA NAZWA</button></div>
+        <div class="divLeft formFile">
+            <form class="formFile" enctype="multipart/form-data" method="POST" action="/handleUpload"
+                name="imagetoupload">
+                <label id="inFile"> <img id="imgUp" src="/img/upload.png" alt="upload">
+                    <p id="imgUpP">[wybierz...]</p><input type="file" required multiple name="files">
+                </label>
+                <button id="btFile" type="submit">OK</button>
+            </form>
+        </div>
+    </div>
+    <div id="prawa">
+        <p>
+            <a class="path" href="/">home</a>
+            {{#each where}}
+            <a class="path" href="/?name={{path}}"> > {{name}}</a>
+            {{/each}}
+        </p>
+
+        <div class="category">
+            {{#each folders}}
+            <div class="box folder">
+                <a class="X" href="/deleteFolder/{{name}}">X</a>
+                <div class="jpg">{{{img "folder"}}}</div>
+                <a class="Name" href="/?name={{path}}">{{name}}</a>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="category">
+            {{#each files}}
+            <div class="box file">
+                <a class="X" href="/deleteFile/{{name}}">X</a><br>
+                <div class="jpg">{{{img ext}}}</div>
+                <a class="Name" href="/show/{{name}}">{{name}}</a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <dialog id="dialog1">
+        <form action="/createFolder" method="get">
+            <label id="label1">podaj nazwę folderu</label><br>
+            <input type="text" name="name">
+            <button id="ok" type="submit" class="folder">OK</button>
+        </form>
+        <button id="cancelFolder" class="folder">ANULUJ</button>
+    </dialog>
+
+    <dialog id="dialog2">
+        <form action="/createFile" method="get">
+            <label id="label1">podaj nazwę pliku</label><br>
+            <input type="text" name="name">
+            <button id="ok" type="submit" class="folder">OK</button>
+        </form>
+        <button id="cancelFile" class="folder">ANULUJ</button>
+    </dialog>
+
+    <dialog id="dialog3">
+        <form action="/newName" method="get">
+            <label id="label1">podaj nową nazwę</label><br>
+            <input type="text" name="name">
+            <button id="ok" type="submit" class="folder">OK</button>
+        </form>
+        <button id="cancelName" class="folder">ANULUJ</button>
+    </dialog>
+
+    <script src="/js/index.js"></script>
+</div>
+</div>
+</div>

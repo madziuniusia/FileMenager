@@ -1,0 +1,198 @@
+.divLeft {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.divLeft-a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #4f6368;
+    border: 0px;
+    width: 210px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+#ShowFile-a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    background-color: rgb(216, 234, 236);
+    color: black;
+
+}
+
+#ShowFile-a:hover {
+    background-color: rgb(1, 1, 155);
+    color: white;
+}
+
+.formFile {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: #4f6368;
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#inFile {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#imgUp {
+    height: 50px;
+    width: 50px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+#imgUpP {
+    padding-right: 15px;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#imgUpP:hover {
+    background-color: whitesmoke;
+}
+
+#btFile {
+    width: 50px;
+    height: 50px;
+    font-size: x-small;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #c5cfc4;
+    color: black;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: large;
+}
+
+button:hover {
+    background-color: #7ea37e;
+}
+
+.a-header {
+    color: white;
+    font-size: large;
+    font-weight: 800;
+    padding: 50px;
+}
+
+#context {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+#lewa {
+    width: 30%;
+    height: 88vh;
+    background-color: #8a978b;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+#prawa {
+    width: 70%;
+    height: 500px;
+    padding: 50px;
+}
+
+#prawa-edit {
+    width: 70%;
+    height: 100%;
+}
+
+.category {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 10px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    font-size: large;
+    padding: 5px;
+}
+
+.file {
+    background-color: #b8b5a7;
+}
+
+.folder {
+    background-color: #827e76;
+}
+
+.path {
+    text-decoration: none;
+    color: black
+}
+
+.jpg {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    margin-left: 45px;
+    margin-bottom: 10px;
+}
+
+.X {
+    float: right;
+    color: white;
+    font-size: xx-large;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.X:hover {
+    background-color: black;
+}
+
+.Name {
+    color: white;
+    font-size: large;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    max-width: 50px;
+    max-height: 50px;
+}

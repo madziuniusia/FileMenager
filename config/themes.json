@@ -1,0 +1,29 @@
+{
+    "themes": [
+        {
+            "name": "snowfall",
+            "background": "#4f6368",
+            "fontColor": "#eceael"
+        },
+        {
+            "name": "pinki",
+            "background": "#BFB6DE",
+            "fontColor": "#79738C"
+        },
+        {
+            "name": "blue",
+            "background": "#59A9DE",
+            "fontColor": "#2C6991"
+        },
+        {
+            "name": "calm",
+            "background": "#827e76",
+            "fontColor": "#c5cfc4"
+        },
+        {
+            "name": "pinterest",
+            "background": "#8a978b",
+            "fontColor": "#b8b5a7"
+        }
+    ]
+}
