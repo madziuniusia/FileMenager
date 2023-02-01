@@ -14,9 +14,20 @@
         <div class="divLeft"> <a href="/Text/{{name}}" class="divLeft-a" id="ShowFile-a">SHOW FILE</a></div>
     </div>
     <div id="prawa-edit">
-        <div id="upName">{{name}}</div>
-        <textarea id="line-count" readonly></textarea>
+        <div id="upName">{{root}}/{{name}}</div>
+        <textarea id="line-count" readonly disabled></textarea>
         <textarea name="text" id="area">{{text}}</textarea>
     </div>
+
+    <dialog id="dialog4">
+        <form action="/newNameFile" method="get">
+            <label id="label1">podaj nową nazwę</label><br>
+            <input type="text" name="name">
+            <button id="ok" type="submit" class="folder">OK</button>
+            <input type="text" name="oldName" value="{{name}}" hidden>
+            <input type="text" name="root" value="{{root}}" hidden>
+        </form>
+        <button id="cancelName" class="folder">ANULUJ</button>
+    </dialog>
 
     <script type="module" src="/js/file.js"></script>

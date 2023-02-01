@@ -78,15 +78,9 @@ document.getElementById("savefile").addEventListener("click", () => {
   });
 });
 
-/* const renameDialog = document.getElementById("rename-dialog");
-
-document
-  .getElementById("rename-dialog-cancel-btn")
-  .addEventListener("click", () => {
-    renameDialog.style.display = "none";
-  });
-
 document.getElementById("changeName").addEventListener("click", () => {
-  renameDialog.style.display = "block";
-  document.getElementById("name-value").focus();
-}); */
+  document.getElementById("dialog4").showModal();
+});
+document.getElementById("cancelName").addEventListener("click", () => {
+  document.getElementById("dialog4").close();
+});

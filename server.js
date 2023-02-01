@@ -207,6 +207,7 @@ app.get("/show/:name", (req, res) => {
   const context = {
     text: "",
     name: req.params.name,
+    root: PathNow,
   };
   fs.readFile(
     path.join(__dirname, "upload", PathNow, req.params.name),
@@ -219,6 +220,20 @@ app.get("/show/:name", (req, res) => {
 
 app.get("/Text/:name", (req, res) => {
   res.sendFile(path.join(__dirname, "upload", PathNow, req.params.name));
+});
+
+app.get("/newNameFile", (req, res) => {
+  const root = req.query.root;
+  const oldPath = path.join(__dirname, "upload", root, req.query.oldName);
+  const newPath = path.join(__dirname, "upload", root, req.query.name);
+
+  if (!fs.existsSync(newPath)) {
+    fs.rename(oldPath, newPath, (err) => {
+      res.redirect(`/?name=${root}`);
+    });
+  } else {
+    res.redirect(`/?name=${root}`);
+  }
 });
 
 app.get("/theme", (req, res) => {

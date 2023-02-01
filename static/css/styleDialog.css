@@ -16,7 +16,8 @@ dialog {
     background-color: #b8b5a7;
 }
 
-#dialog3 {
+#dialog3,
+#dialog4 {
     background-color: rgb(25, 68, 25);
 }
 
