@@ -16,7 +16,12 @@
     <div id="prawa-edit">
         <div id="upName">{{root}}/{{name}}</div>
         <textarea id="line-count" readonly disabled></textarea>
-        <textarea name="text" id="area">{{text}}</textarea>
+        <form action="/write" method="get" id="FormArea">
+            <input name="name" value="{{name}}" hidden>
+            <input type="text" name="root" value="{{root}}" hidden>
+            <textarea name="content" id="area">{{text}}</textarea><br>
+            <button>Send</button>
+        </form>
     </div>
 
     <dialog id="dialog4">

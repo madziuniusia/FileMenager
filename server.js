@@ -6,6 +6,7 @@ const path = require("path");
 const { send } = require("process");
 const app = express();
 const PORT = 3000;
+const bodyParser = require("body-parser");
 
 app.set("views", path.join(__dirname, "views"));
 app.engine(
@@ -203,6 +204,22 @@ app.get("/createFile", (req, res) => {
   }
 });
 
+app.post("/handleUpload", (req, res) => {
+  let form = formidable({});
+
+  form.uploadDir = path.join(__dirname, "upload", PathNow);
+  form.keepExtensions = true;
+  form.multiples = true;
+
+  form.on("file", (field, file) => {
+    fs.rename(`${file.path}`, form.uploadDir + "/" + file.name, () => {});
+  });
+
+  form.parse(req, function (err, fields, files) {
+    res.redirect(`/?name=${PathNow}`);
+  });
+});
+
 app.get("/show/:name", (req, res) => {
   const context = {
     text: "",
@@ -212,10 +229,23 @@ app.get("/show/:name", (req, res) => {
   fs.readFile(
     path.join(__dirname, "upload", PathNow, req.params.name),
     (err, data) => {
-      context.text = data.toString();
+      context.text = data;
       res.render("edytor.hbs", context);
     }
   );
+});
+app.get("/write", (req, res) => {
+  const filePath = path.join(
+    __dirname,
+    "upload",
+    `${req.query.root}`,
+    `${req.query.name}`
+  );
+
+  fs.writeFile(filePath, req.query.content, (err) => {
+    if (err) console.log(err);
+    res.redirect(`/?name=${req.query.root}`);
+  });
 });
 
 app.get("/Text/:name", (req, res) => {
@@ -291,22 +321,6 @@ app.get("/deleteFile/:name", (req, res) => {
     (err) => {}
   );
   res.redirect(`/?name=${PathNow}`);
-});
-
-app.post("/handleUpload", (req, res) => {
-  let form = formidable({});
-
-  form.uploadDir = path.join(__dirname, "upload", PathNow);
-  form.keepExtensions = true;
-  form.multiples = true;
-
-  form.on("file", (field, file) => {
-    fs.rename(`${file.path}`, form.uploadDir + "/" + file.name, () => {});
-  });
-
-  form.parse(req, function (err, fields, files) {
-    res.redirect(`/?name=${PathNow}`);
-  });
 });
 
 app.listen(PORT, function () {

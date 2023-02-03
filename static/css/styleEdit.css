@@ -21,8 +21,16 @@
 
 textarea {
     border: none;
-    width: 91%;
-    height: 88.81vh;
+    width: 100%;
+    height: 85vh;
+    resize: none;
+}
+
+#FormArea {
+    border: none;
+    float: right;
+    width: 90%;
+    height: 50vh;
     resize: none;
 }
 
