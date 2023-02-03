@@ -69,12 +69,12 @@ document.getElementById("color").addEventListener("click", () => {
 });
 
 document.getElementById("savefile").addEventListener("click", () => {
-  fetch("/settings", {
+  fetch("/JsonFile", {
     method: "put",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(settings),
   }).then(() => {
-    alert("Settigs saved");
+    alert("SAVED");
   });
 });
 

@@ -6,7 +6,6 @@ const path = require("path");
 const { send } = require("process");
 const app = express();
 const PORT = 3000;
-const bodyParser = require("body-parser");
 
 app.set("views", path.join(__dirname, "views"));
 app.engine(
@@ -54,6 +53,7 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "static")));
 
@@ -241,7 +241,6 @@ app.get("/write", (req, res) => {
     `${req.query.root}`,
     `${req.query.name}`
   );
-
   fs.writeFile(filePath, req.query.content, (err) => {
     if (err) console.log(err);
     res.redirect(`/?name=${req.query.root}`);
@@ -278,7 +277,7 @@ app.get("/settings", (req, res) => {
   });
 });
 
-app.put("/settings", (req, res) => {
+app.put("/JsonFile", (req, res) => {
   if (!req.body.theme || !req.body.fontSize) {
     res.end();
     return;
@@ -286,7 +285,10 @@ app.put("/settings", (req, res) => {
 
   fs.writeFile(
     path.join(__dirname, "config", "settings.json"),
-    JSON.stringify(req.body)
+    JSON.stringify(req.body),
+    (err) => {
+      res.end();
+    }
   );
 });
 
