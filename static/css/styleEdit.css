@@ -50,3 +50,62 @@ textarea {
     height: 50px;
     padding: 11px;
 }
+
+#left-edit {
+    width: 20%;
+    height: 88vh;
+    background-color: #8a978b;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+#right-edit {
+    width: 80%;
+}
+
+.imgFilters {
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+    padding-top: 5px;
+    text-align: center;
+}
+
+.imgFilters:hover {
+    background-color: #8a978b;
+    opacity: 80%;
+}
+
+.divLeftEdit {
+    display: flex;
+    flex-direction: column;
+}
+
+#canvasStyle {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#canvas {
+    width: 500px;
+    height: 500px;
+}
+
+#rightCanva {
+    float: right;
+}
+
+.filtersUnisible {
+    width: 0px;
+    transition: width 1.5s;
+    overflow-x: hidden;
+    height: min-content;
+}
+
+.filterVisible {
+    width: 200px;
+}

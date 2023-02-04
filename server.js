@@ -219,21 +219,37 @@ app.post("/handleUpload", (req, res) => {
     res.redirect(`/?name=${PathNow}`);
   });
 });
+app.get("/Text/:name", (req, res) => {
+  res.sendFile(path.join(__dirname, "upload", PathNow, req.params.name));
+});
 
 app.get("/show/:name", (req, res) => {
-  const context = {
-    text: "",
-    name: req.params.name,
-    root: PathNow,
-  };
-  fs.readFile(
-    path.join(__dirname, "upload", PathNow, req.params.name),
-    (err, data) => {
-      context.text = data;
-      res.render("edytor.hbs", context);
-    }
-  );
+  let extArr = req.params.name.split(".");
+  let ext = extArr[extArr.length - 1];
+
+  if (ext == "png" || ext == "jpg" || ext == "jpeg") {
+    const contextImg = {
+      name: req.params.name,
+      root: PathNow,
+      img: `/Text${PathNow}${req.params.name}`,
+    };
+    res.render("image.hbs", contextImg);
+  } else {
+    const context = {
+      text: "",
+      name: req.params.name,
+      root: PathNow,
+    };
+    fs.readFile(
+      path.join(__dirname, "upload", PathNow, req.params.name),
+      (err, data) => {
+        context.text = data;
+        res.render("edytor.hbs", context);
+      }
+    );
+  }
 });
+
 app.get("/write", (req, res) => {
   const filePath = path.join(
     __dirname,
@@ -245,10 +261,6 @@ app.get("/write", (req, res) => {
     if (err) console.log(err);
     res.redirect(`/?name=${req.query.root}`);
   });
-});
-
-app.get("/Text/:name", (req, res) => {
-  res.sendFile(path.join(__dirname, "upload", PathNow, req.params.name));
 });
 
 app.get("/newNameFile", (req, res) => {
@@ -290,6 +302,15 @@ app.put("/JsonFile", (req, res) => {
       res.end();
     }
   );
+});
+
+app.put("/SaveImg", (req, res) => {
+  const imgPath = path.join(__dirname, "upload", req.body.path);
+  const content = req.body.content.slice(req.body.content.indexOf(",") + 1);
+
+  const buffer = Buffer.from(content, "base64");
+  fs.writeFileSync(imgPath, buffer, (err) => {});
+  res.send({ msg: "Save img" });
 });
 
 app.get("/deleteFolder/:name", (req, res) => {

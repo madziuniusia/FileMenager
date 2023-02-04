@@ -1,0 +1,42 @@
+{{> partial1}}
+
+<div id="context">
+    <div id="left-edit">
+        <div class="divLeftEdit">
+            <button id="filter" class="divLeft-a" name="Filter">FILTER</button>
+            <button id="SaveFilter" class="divLeft-a" name="SaveFilter">Save FILTER</button>
+        </div>
+    </div>
+
+    <div id="filtersUnisible" class="filtersUnisible">
+        <div class="imgFilters" id="none">
+            <img src="/Text/{{name}}" alt="none" width="100" height="100">
+            <p>none</p>
+        </div>
+        <div class="imgFilters" id="blur">
+            <img style="filter: blur(5px)" src="/Text/{{name}}" alt="blur" width="100" height="100">
+            <p>blur</p>
+        </div>
+        <div class="imgFilters" id="sepia">
+            <img style="filter: sepia(100%)" src="/Text/{{name}}" alt="sepia" width="100" height="100">
+            <p>sepia</p>
+        </div>
+        <div class="imgFilters" id="hue-rotate">
+            <img style="filter: hue-rotate(90deg);" src="/Text/{{name}}" alt="hue-rotate" width="100" height="100">
+            <p>hue-rotate</p>
+        </div>
+        <div class="imgFilters" id="contrastBrightness">
+            <img style="filter: contrast(200%) brightness(150%);" src="/Text/{{name}}" alt="contrastBrightness"
+                width="100" height="100">
+            <p>contrastBrightness</p>
+        </div>
+    </div>
+
+    <div id="right-edit">
+        <div id="upName">{{root}}/{{name}}</div>
+        <img src="/Text/{{name}}" id="img" style="display: none;">
+        <input type="text" id="name" value="{{root}}/{{name}}" style="display: none;">
+        <div id="canvasStyle"><canvas width="300" height="300" id="canvas"></canvas></div>
+    </div>
+</div>
+<script src="/js/image.js"></script>
