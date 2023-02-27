@@ -6,6 +6,9 @@ const path = require("path");
 const { send } = require("process");
 const app = express();
 const PORT = 3000;
+const cookieparser = require("cookie-parser");
+const nocache = require("nocache");
+const bodyParser = require("body-parser");
 
 app.set("views", path.join(__dirname, "views"));
 app.engine(
@@ -54,54 +57,144 @@ app.engine(
 );
 app.set("view engine", "hbs");
 app.use(express.json());
+app.use(cookieparser());
+app.use(nocache());
+/* response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+response.setHeader("Expires", "0"); // Proxies. */
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "static")));
 
 let PathNow = "";
+let UserName;
 
-app.get("/", (req, res) => {
-  const context = {
-    folders: [],
-    files: [],
-    where: [],
-    path: "",
+//logowanie
+let users = [{ login: "madzia", pass: "123" }];
+app.get("/login", (req, res) => {
+  res.render("login.hbs");
+});
+app.get("/register", (req, res) => {
+  res.render("register.hbs");
+});
+
+app.get("/logout", (req, res) => {
+  res.clearCookie("login");
+  //ususniecie cookie
+  res.render("login.hbs");
+});
+
+app.post("/registerUser", (req, res) => {
+  let bool;
+  let error = {
+    error: "",
   };
-  context.path = req.query.name ?? "";
-  PathNow = context.path;
-  let lastPath = "";
-  context.where = context.path.split(path.sep).map((name) => {
-    lastPath = path.join(lastPath, name);
-    return { name, path: lastPath };
-  });
+  let login = req.body.login;
 
-  fs.readdir(path.join(__dirname, "upload", context.path), (err, files) => {
-    files.forEach((element) => {
-      fs.lstat(
-        path.join(__dirname, "upload", context.path, element),
-        (err, stats) => {
-          if (stats.isDirectory()) {
-            context.folders.push({
-              name: element,
-              path: path.join(context.path, element),
-            });
-          } else {
-            context.files.push({
-              name: element,
-              ext: element.slice(-3),
-              path: path.join(context.path, element),
-            });
-          }
-          context.folders.sort((a, b) =>
-            a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-          );
-          context.files.sort((a, b) =>
-            a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-          );
-        }
-      );
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].login == login) {
+      //ten login zajety
+      bool = false;
+      break;
+    } else {
+      bool = true;
+    }
+  }
+
+  if (bool) {
+    if (req.body.pass == req.body.confirmPass) {
+      users.push({ login: req.body.login, pass: req.body.pass });
+      res.render("login.hbs");
+    } else {
+      error.error = "zle hasło";
+      res.render("error.hbs", error);
+    }
+  } else {
+    error.error = "zly login, taki juz istnieje";
+    res.render("error.hbs", error);
+  }
+});
+
+app.post("/login", function (req, res) {
+  let error = {
+    error: "",
+  };
+  let bool;
+
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].pass == req.body.pass && users[i].login == req.body.login) {
+      //stworzenie cookie
+      bool = true;
+      break;
+    } else {
+      bool = false;
+    }
+  }
+  if (bool == true) {
+    UserName = req.body.login;
+    error.error = "WITAJ " + req.body.login;
+    res.cookie("login", req.body.login, { httpOnly: true, maxAge: 30 * 1000 }); // testowe 30 sekund
+    res.render("login.hbs", error);
+  } else {
+    error.error = "zle hasło lub login";
+    res.render("error.hbs", error);
+  }
+});
+
+//-------------------------------------------------------------------------------------
+app.get("/", (req, res) => {
+  res.set("Cache-control", "no-store");
+
+  let error = {
+    error: "",
+  };
+  if (req.cookies.login == undefined) {
+    error.error = "CWANIACZKU NIE JESTES ZALOGOWANY";
+    res.render("login.hbs", error);
+  } else {
+    const context = {
+      folders: [],
+      files: [],
+      where: [],
+      path: "",
+    };
+    context.path = req.query.name ?? "";
+    PathNow = context.path;
+    let lastPath = "";
+    context.where = context.path.split(path.sep).map((name) => {
+      lastPath = path.join(lastPath, name);
+      return { name, path: lastPath };
     });
-  });
-  res.render("index.hbs", context);
+
+    fs.readdir(path.join(__dirname, "upload", context.path), (err, files) => {
+      files.forEach((element) => {
+        fs.lstat(
+          path.join(__dirname, "upload", context.path, element),
+          (err, stats) => {
+            if (stats.isDirectory()) {
+              context.folders.push({
+                name: element,
+                path: path.join(context.path, element),
+              });
+            } else {
+              context.files.push({
+                name: element,
+                ext: element.slice(-3),
+                path: path.join(context.path, element),
+              });
+            }
+            context.folders.sort((a, b) =>
+              a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+            );
+            context.files.sort((a, b) =>
+              a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+            );
+          }
+        );
+      });
+    });
+    res.render("index.hbs", context);
+  }
 });
 
 app.get("/createFolder", (req, res) => {

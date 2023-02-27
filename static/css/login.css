@@ -1,0 +1,21 @@
+.bt-form-logIn {
+    background-color: #606860;
+    padding: 10px;
+    border: 1px #606860 solid;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input-Log {
+    width: 300px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 15px;
+}
